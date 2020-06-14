@@ -16,21 +16,21 @@ Do the following in Python:
 
 RUN Static_model.py
 
-Figure 1.3.1: call	Simple(6, Spacing=0)
-			Simple(10,Spacing=0)
+Figure 1.3.1: call	Simple(6, Spacing=0),
+			Simple(10,Spacing=0),
 			Simple(40,Spacing=0)
 			
 
 Figure 1.3.2: call 	Simple(6, tan='yes')
 
 
-Figure 1.3.3: call	Simple(6, Spacing=2)
-			Simple(10,Spacing=2)
+Figure 1.3.3: call	Simple(6, Spacing=2),
+			Simple(10,Spacing=2),
 			Simple(40,Spacing=2)
 			
 
-Figure 1.3.4: call	Simple(6)
-			Simple(10)
+Figure 1.3.4: call	Simple(6),
+			Simple(10),
 			Simple(40)
 			
 RUN Fixed_E_or_F.py
@@ -43,9 +43,9 @@ Figure 1.5.1: call 	eConst(6, 'C')
 
 RUN Simple_Hermite.py
 
-Figure 1.6.1: call	main(6)
-			main(10)
-			main(40)
+Figure 1.6.1: call	main(6),
+			main(10),
+			main(40),
 			
 
 Figure 1.6.2: call	main(6,True)
@@ -73,26 +73,26 @@ Figure 4.2.1: call 	figures(10)
 
 
 Figure 4.2.2: close all figures and call
-			figures(6)
-			figures(6,'LimE')
+			figures(6),
+			figures(6,'LimE'),
 			figures(6,'LimF')
 
 RUN Grad.py	
 
-Figure 4.3.1: call	Gradmethod(10,'NonConvex') (if wanted change parameter of h=2/(mu+L))
+Figure 4.3.1: call	Gradmethod(10,'NonConvex') (if wanted change parameter h=2/(mu+L))
 
 
 Figure 4.3.2: call	Accmethod(10,'NonConvex')
 
 RUN Domain.py
 
-Figure 4.4.1: call	figures(2)
-Figure 4.4.2:
-Figure 4.5.2:
+Figure 4.4.1,
+Figure 4.4.2,
+Figure 4.5.2: call	figures(2)
 
 
-Figure 4.4.3: call 	figures(3)
-Figure 4.5.1:
+Figure 4.4.3,
+Figure 4.5.1: call 	figures(3)
 
 
 RUN RelaxComparison.py
@@ -100,21 +100,21 @@ RUN RelaxComparison.py
 Table 4.1: call		TestNegdes(2), TestNegdes(3), TestNegdes(6), TestNegdes(10)
 
 
-Figure 4.7.1: call	ErrorRelaxation()
-Figure 4.7.3:
+Figure 4.7.1,
+Figure 4.7.3: call	ErrorRelaxation()
 
 
-Figure 4.7.4: call	TimeRelaxation()
-Figure 4.7.5:
+Figure 4.7.4,
+Figure 4.7.5: call	TimeRelaxation()
 
 
 RUN Grad.py
 
-Figure 4.8.1: call	Gradmethod(10)
+Figure 4.8.1: call	Gradmethod(10),
 			Accmethod(10)
 
 
-Figure 4.8.2: call	SPG(10)
+Figure 4.8.2: call	SPG(10),
 			SPG(40)
 
 
@@ -126,8 +126,8 @@ Figure 4.9.1: call	testSQP(100)
 
 RUN POZ.py
 
-Figure 5.2.1: call	figures()
-Figure 5.2.2:
+Figure 5.2.1,
+Figure 5.2.2:  call	figures()
 
 
 RUN MultiPOZ
