@@ -26,8 +26,9 @@ from Grad import SolveGurobi
 PI=math.pi
 
 """
+The function displays all figures required for the domain analysis of the 2 or 3-unit test case
 Choose between:
-    N=2,3
+    N=2 or 3
 """
 def figures(N):
     plt.close("all")
