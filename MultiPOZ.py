@@ -124,12 +124,6 @@ def ErrorPOZ():
         (Ek, Ck, Pk)=SQP(N,w_E,w_C,D)
         CnoPOZ[i]=Ck.copy()
         EnoPOZ[i]=Ek.copy()
-        """
-        (Obj,P)=Solve(N,w_E,w_C,D)
-        CnoPOZ[i] = sum(a[k]+b[k]*P[k]+c[k]*P[k]*P[k] for k in range(N))
-        EnoPOZ[i] = sum(alpha[k]+beta[k]*P[k]+gamma[k]*P[k]*P[k]+eta[k]*np.exp(delta[k]*P[k]) for k in range(N))
-        """
-
         
     [e,spline]=Hermite(EnoPOZ,CnoPOZ, price*w, 1-w )
     

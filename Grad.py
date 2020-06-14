@@ -21,10 +21,15 @@ from NLSolverStat import Solve
 from scipy.optimize import minimize
 from scipy.optimize import NonlinearConstraint
 
+"""
+This function solves the static EED with losses.
+If method=="NonConvex": it considers the equality constraint
+Elif "ConvexRelax": inequality constraint
+else "LinRelax": uses the linear relaxation using N points
+"""
 def SolveGurobi(N,w_E,w_C, Demand, method="ConvexRelax"):
     (Unused,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
     B=loss(N)
-    
     m = gp.Model('Static Nonlinear EED with transmission losses')
     Pow = m.addVars(range(N),lb=Pmin,ub=Pmax, name='P')
     PLoss = m.addVar()
@@ -67,6 +72,7 @@ def SolveGurobi(N,w_E,w_C, Demand, method="ConvexRelax"):
 
 
 """
+Performs the Constrained Gradient Method
 Choose between:
     N=2,3,6,10(,40,100)
     method='NonConvex', 'ConvexRelax'
@@ -212,6 +218,7 @@ def GradMethod(N=10, method='ConvexRelax', solver='Gurobi'):
     
  
 """
+Performs the Accelerated Method
 Choose between:
     N=2,3,6,10(,40,100)
     method='NonConvex', 'ConvexRelax'
@@ -346,12 +353,15 @@ def AccMethod(N=10, method='ConvexRelax', solver='Gurobi'):
 
 
 """
+Performs the SPG method on the convex relaxation
 Choose between:
     N=2,3,6,10,40(,100)
     solver='Gurobi', 'Scipy'
 """
 def SPG(N=10, solver="Gurobi"):
     (Demand,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
+    if (N==40): # Default demand not suited for problem with Transmission Losses
+        Demand=7500
     B=loss(N)
     price = SimplePriceFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand)
     

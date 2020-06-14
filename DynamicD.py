@@ -97,6 +97,7 @@ def DEED_QP(N, reserves=True):
         E[i]=Emission.getValue()
     return(E,C,EconomicSol,EmissionSol,price,w,T)
     
+""" Displays the obtained POF and the Power dispatch of the Dynamic EED"""
 def figures(N): 
     prop_cycle = plt.rcParams['axes.prop_cycle']
     colors = prop_cycle.by_key()['color']

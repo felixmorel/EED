@@ -23,7 +23,6 @@ This function computes 10 PO values for the Dynamic EED with Transmission Losses
 The method for computing these points depends on the following parameter:
 method= "scal"; "LimE" ; "LimF"
 
-
 """
 def DEED_PL(N,method):
     (StaticD,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
@@ -138,8 +137,12 @@ def DEED_PL(N,method):
         E[i]=Emission.getValue()
     return(E,C,price,w,T)
     
-    
-#method= 'scal' ; 'LimE' ; 'LimF'
+"""
+Displays the POF for the DEED using tranmission losses
+If method=='scal: scalarization of the objective+ comparison with the DEEd without losses
+Else method== 'LimE' or 'LimF' : e-constraint method
+
+ """   
 def figures(N, method="scal"): 
     t0=time.time()
     [E,C,price,w,T]=DEED_PL(N, method)

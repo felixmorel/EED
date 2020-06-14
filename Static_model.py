@@ -10,7 +10,7 @@ from gurobipy import GRB
 import matplotlib.pyplot as plt
 from Params import load,loss
 
-
+# This function computes the price penalty factor on the static QP
 def PricePenaltyFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand):
     Num=a+np.multiply(b,Pmax)+np.multiply(c,np.multiply(Pmax,Pmax))
     Denom = alpha+np.multiply(beta,Pmax)+np.multiply(gamma,np.multiply(Pmax,Pmax))
@@ -24,7 +24,8 @@ def PricePenaltyFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand):
     coeff=(Sum[i]-Demand)/ m[i]                               
     hm=(1-coeff)*h[i]+coeff*h[i-1]
     return(hm)    
-    
+
+# This function computes the average price on the emissions on the static QP
 def SimplePriceFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand):
     N=len(a)   
     model = gp.Model('Quadratic Problem')
@@ -55,7 +56,7 @@ def SimplePriceFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand):
 This function obtains the POF for the simple problem
 Optional Parameters:
 spacing: 1,2,3 for different spacements
-tan= 'yes','no'
+tan= 'yes','no' : plots the tangent at a given Pareto value
 
 """   
 def Simple(N, Spacing=1, tan='no'):        

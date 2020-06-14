@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from Params import load
 from Static_model import SimplePriceFun
 
-#Computes the POF and for a given limit
+#Computes the POF with the epsilon-constraint method on a certain objective
 # Limit= 'E' or 'C'
 def eConst(N=6, Limit="E"):
        

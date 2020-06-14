@@ -23,7 +23,7 @@ from NLSolverStat import Solve,SQP
 
 PI=math.pi
 
-""" Sovles one problem with POZ given the scalarized objective: f(p)=w_E*E(p)+w_C*C(p)"""
+""" Solves one problem with POZ given the scalarized objective: f(p)=w_E*E(p)+w_C*C(p) and demand D"""
 def SQP_MINLP(N,w_E,w_C,D):
     (Unused,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
     B=loss(N)
@@ -133,9 +133,8 @@ def InZone(Pk,Pmin,Pmax,Zones, Units):
             LowerB[i]=Zon_i[j,1]
     return(LowerB,UpperB)
     
-    
+#e-constraint on the fuel costs with limit=LimF 
 def eConstF_SQP(N,LimF,D):
-    #Limits on the Fuel costs
     (Unused,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
     B=loss(N)
     (Zones,Units)=zones(N)    
@@ -186,10 +185,7 @@ def eConstF_SQP(N,LimF,D):
         DeltaP = model.addVars(range(N),lb=Pmin-Pk,ub=Pmax-Pk)
         Surplus=sum(Pk)-Pk@B@Pk-D
         model.addConstr(Surplus+sum(DeltaP[k]*(1-2*Pk@B[k]) for k in range(N))>=0)
-        """
-        Costs= LimF- sum(a[k]+b[k]*Pk[k]+c[k]*Pk[k]*Pk[k] for k in range(N))
-        model.addConstr(Costs-sum(DeltaP[k]*(b[k]+2*c[k]*Pk[k]) for k in range(N))>=0)
-        """
+
         model.addQConstr(LimF- sum(a[k]+b[k]*(Pk[k]+DeltaP[k])+c[k]*(Pk[k]+DeltaP[k])*(Pk[k]+DeltaP[k]) for k in range(N))>=0 )
 
         for i in range(N): # POZ
@@ -248,6 +244,8 @@ def eConstF_SQP(N,LimF,D):
         it=it+1
     return(Obj[it-1],LimF-cons_C(Pk),Pk)
 
+#e-constraint on the emssions with limit=LimE 
+
 def eConstE_SQP(N,LimE,D):
     (Unused,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
     B=loss(N)
@@ -305,10 +303,7 @@ def eConstE_SQP(N,LimE,D):
             
         Surplus=sum(Pk)-Pk@B@Pk-D
         model.addConstr(Surplus+sum(DeltaP[k]*(1-2*Pk@B[k]) for k in range(N))==0)
-        """
-        Emiss= LimE- sum(alpha[k]+beta[k]*Pk[k]+gamma[k]*Pk[k]*Pk[k]+eta[k]*np.exp(delta[k]*Pk[k]) for k in range(N))
-        model.addConstr(Emiss-sum(DeltaP[k]*(beta[k]+2*gamma[k]*Pk[k]+delta[k]*eta[k]*np.exp(delta[k]*Pk[k])) for k in range(N))>=0)
-        """
+
         model.addQConstr(LimE- sum(alpha[k]+beta[k]*(Pk[k]+DeltaP[k])+gamma[k]*(Pk[k]+DeltaP[k])*(Pk[k]+DeltaP[k])
                         +eta[k]*np.exp(delta[k]*Pk[k])*y[k] for k in range(N))>=0 )
     
@@ -367,8 +362,6 @@ def eConstE_SQP(N,LimE,D):
             print(it, " of ", Maxiter)
         it=it+1
 
-
-
     """Figures"""
     opt=Obj[it-1]+1e-6
     plt.figure()
@@ -387,24 +380,11 @@ def eConstE_SQP(N,LimE,D):
     plt.legend()
     plt.grid()
     
-    return(LimE-cons_C(Pk),Obj[it-1],Pk)
-
-def Temp():
-    N=6
-    (D,Pmax,Pmin,a,b,c,alpha,beta,gamma,delta,eta,UR,DR) = load(N)
-    D=2*D/3
-    
-    (Emax, Cmin, Pk)=SQP(N,0,1,D)  
-    (Emin, Cmax, Pk)=SQP(N,1,0,D)
-    LimE=(Emin+Emax)/2
-    t0=time.time()
-    (E, C, Pk)=eConstE_SQP(N,LimE,D)
-    print(time.time()-t0)
-    print(E,C)
+    return(LimE-cons_C(Pk),Obj[it-1],Pk)    
     
     
-    
-#Function displays the Front obtained with scalalarization method for the 6-unit problem 
+# Function displays the Front obtained with scalalarization method for the 6-unit problem 
+# It displays also the outputs related to each problem and highlights the active POZ
 def figures(): 
     N=6
     it=100
