@@ -52,7 +52,7 @@ def SimplePriceFun(Pmin,Pmax,a,b,c,alpha,beta,gamma,Demand):
     return(p)
   
 """
-This function obtain the POF for the simple problem
+This function obtains the POF for the simple problem
 Optional Parameters:
 spacing: 1,2,3 for different spacements
 tan= 'yes','no'
