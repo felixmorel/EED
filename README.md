@@ -1,7 +1,7 @@
 # Economic Emission Dispatch
 
-This README file explains how to obtain all figures from the master's thesis:
-"Economic Emission Dispatch" from Félix Morel de Westgaver.
+This README file explains how to obtain all figures from my master's thesis:
+"Economic Emission Dispatch".
 
 The codes are written in Python, here is a list of all files that are used:
 
